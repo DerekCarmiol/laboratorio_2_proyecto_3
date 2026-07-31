@@ -1,0 +1,18 @@
+### IDEs ###
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+### Logs ###
+*.log
+nohup.out
+
+### Sistema operativo ###
+.DS_Store
+Thumbs.db

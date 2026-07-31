@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="navbar-inner">
+    <span class="brand">Proyecto 3</span>
+
+    <div class="nav-links">
+      <a routerLink="/productos" routerLinkActive="active">Productos</a>
+      <a routerLink="/categorias" routerLinkActive="active">Categorías</a>
+      @if (auth.isAdmin()) {
+        <a routerLink="/usuarios" routerLinkActive="active">Usuarios</a>
+      }
+    </div>
+
+    <div class="nav-user">
+      <span class="nav-email">{{ auth.usuario()?.email }}</span>
+      <span class="tag" [class.tag-admin]="auth.isAdmin()">{{ auth.usuario()?.rol }}</span>
+      <button class="btn btn-sm" (click)="salir()">Salir</button>
+    </div>
+  </div>
+</nav>

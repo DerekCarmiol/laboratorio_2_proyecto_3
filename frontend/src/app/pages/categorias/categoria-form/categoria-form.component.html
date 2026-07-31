@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h1>{{ editando ? 'Editar categoría' : 'Nueva categoría' }}</h1>
+</div>
+
+<form class="card form-card" [formGroup]="form" (ngSubmit)="submit()">
+  <div class="field">
+    <label for="nombre">Nombre</label>
+    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Electrónica">
+    @if (form.controls.nombre.touched && form.controls.nombre.invalid) {
+      <small class="error-text">El nombre es obligatorio (máx. 100 caracteres)</small>
+    }
+  </div>
+
+  <div class="field">
+    <label for="descripcion">Descripción</label>
+    <textarea id="descripcion" rows="4" formControlName="descripcion"
+              placeholder="Descripción de la categoría (opcional)"></textarea>
+    @if (form.controls.descripcion.invalid) {
+      <small class="error-text">Máximo 500 caracteres</small>
+    }
+  </div>
+
+  @if (error) {
+    <div class="alert">{{ error }}</div>
+  }
+
+  <div class="form-actions">
+    <a class="btn" routerLink="/categorias">Cancelar</a>
+    <button class="btn btn-primary" type="submit" [disabled]="guardando">
+      {{ guardando ? 'Guardando...' : (editando ? 'Actualizar' : 'Registrar') }}
+    </button>
+  </div>
+</form>

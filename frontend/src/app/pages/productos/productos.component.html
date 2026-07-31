@@ -1,0 +1,61 @@
+<div class="page-header">
+  <div>
+    <h1>Productos</h1>
+    <p class="muted">{{ productos.length }} producto(s) registrado(s)</p>
+  </div>
+  @if (auth.isAdmin()) {
+    <a class="btn btn-primary" routerLink="/productos/nuevo">Nuevo producto</a>
+  }
+</div>
+
+@if (error) {
+  <div class="alert">{{ error }}</div>
+}
+
+@if (!auth.isAdmin()) {
+  <div class="alert alert-info">
+    Tenés acceso de solo lectura. Únicamente un SUPER-ADMIN-ROLE puede crear, editar o eliminar productos.
+  </div>
+}
+
+<div class="card">
+  @if (cargando) {
+    <p class="muted center pad">Cargando...</p>
+  } @else if (!productos.length) {
+    <p class="muted center pad">No hay productos registrados.</p>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Categoría</th>
+          @if (auth.isAdmin()) {
+            <th class="col-acciones">Acciones</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (producto of productos; track producto.id) {
+          <tr>
+            <td>{{ producto.id }}</td>
+            <td><strong>{{ producto.nombre }}</strong></td>
+            <td>{{ producto.descripcion || '—' }}</td>
+            <td>{{ producto.precio | currency:'USD':'symbol':'1.2-2' }}</td>
+            <td>{{ producto.cantidadEnStock }}</td>
+            <td><span class="tag">{{ producto.categoria.nombre }}</span></td>
+            @if (auth.isAdmin()) {
+              <td class="col-acciones">
+                <a class="btn btn-sm" [routerLink]="['/productos/editar', producto.id]">Editar</a>
+                <button class="btn btn-sm btn-danger" (click)="eliminar(producto)">Eliminar</button>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

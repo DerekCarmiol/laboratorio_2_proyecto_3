@@ -1,0 +1,8 @@
+@if (auth.logueado()) {
+  <app-navbar></app-navbar>
+  <main class="container">
+    <router-outlet></router-outlet>
+  </main>
+} @else {
+  <router-outlet></router-outlet>
+}

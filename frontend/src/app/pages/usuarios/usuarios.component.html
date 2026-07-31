@@ -1,0 +1,37 @@
+<div class="page-header">
+  <div>
+    <h1>Usuarios</h1>
+    <p class="muted">{{ usuarios.length }} usuario(s) registrado(s) en el sistema</p>
+  </div>
+</div>
+
+@if (error) {
+  <div class="alert">{{ error }}</div>
+}
+
+<div class="card">
+  @if (cargando) {
+    <p class="muted center pad">Cargando...</p>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Email</th>
+          <th>Rol</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (usuario of usuarios; track usuario.id) {
+          <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>
+              <span class="tag" [class.tag-admin]="usuario.rol === rolAdmin">{{ usuario.rol }}</span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
